@@ -1,0 +1,23 @@
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+    container_name: todo-backend
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - redis
+
+    environment:
+      REDIS_HOST: redis
+
+  redis:
+    image: redis:7-alpine
+
+    container_name: todo-redis
+
+    ports:
+      - "6379:6379"

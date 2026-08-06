@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: backend-config
+
+data:
+  REDIS_HOST: redis
+  APP_NAME: Todo App
+  
