@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Docker-k8s-todo-app CI
 
 on:
   push:
@@ -6,36 +6,31 @@ on:
       - main
 
 jobs:
-
-  docker:
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.1.0
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
-
+        uses: docker/login-action@v4.5.1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest ./backend
+          docker build -t mv7moud/todo-backend:latest ./backend
 
       - name: Push Backend
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest
+          docker push mv7moud/todo-backend:latest
 
       - name: Build Frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest ./frontend
+          docker build -t mv7moud/todo-frontend:latest ./frontend
 
       - name: Push Frontend
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest
-          
+          docker push mv7moud/todo-frontend:latest
