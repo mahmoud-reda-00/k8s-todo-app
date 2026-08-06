@@ -9,8 +9,11 @@ spec:
 
   rules:
     - host: todo.local
+
       http:
         paths:
+
+          # Frontend
           - path: /
             pathType: Prefix
             backend:
@@ -18,3 +21,12 @@ spec:
                 name: frontend
                 port:
                   number: 80
+
+          # Backend API
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 3000
