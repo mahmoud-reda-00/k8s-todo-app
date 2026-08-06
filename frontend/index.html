@@ -7,66 +7,81 @@
 
     <style>
         body{
-            font-family:Arial,Helvetica,sans-serif;
-            text-align:center;
-            margin-top:80px;
-            background:#f4f4f4;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin-top: 80px;
+            background: #f4f4f4;
         }
 
         .card{
-            width:500px;
-            margin:auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,.2);
         }
 
         button{
-            padding:10px 20px;
-            cursor:pointer;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         h1{
-            color:#2196f3;
+            color: #2196f3;
         }
 
         #result{
-            margin-top:20px;
-            font-size:20px;
+            margin-top: 20px;
+            font-size: 20px;
         }
-
     </style>
 </head>
+
 <body>
 
 <div class="card">
 
-<h1>Kubernetes Todo App 🚀</h1>
+    <h1>Kubernetes Todo App 🚀</h1>
 
-<button onclick="loadData()">
-Call Backend
-</button>
+    <button type="button" onclick="loadData()">
+        Call Backend
+    </button>
 
-<div id="result"></div>
+    <div id="result"></div>
 
 </div>
 
 <script>
 
-async function loadData(){
+async function loadData() {
 
-    const response = await fetch("/api");
+    console.log("Button clicked");
+    alert("Button clicked");
 
-    const data = await response.json();
+    try {
 
-    document.getElementById("result").innerHTML=
+        const response = await fetch("/api");
 
-    `
-    <h3>${data.message}</h3>
+        console.log(response);
 
-    <p>Visits : ${data.visits}</p>
-    `;
+        const data = await response.json();
+
+        console.log(data);
+
+        document.getElementById("result").innerHTML = `
+            <h3>${data.message}</h3>
+            <p>Visits: ${data.visits}</p>
+        `;
+
+    } catch (err) {
+
+        console.error(err);
+
+        document.getElementById("result").innerHTML =
+            `<p style="color:red">${err}</p>`;
+
+    }
 
 }
 
