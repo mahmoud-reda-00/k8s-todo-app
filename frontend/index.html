@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kubernetes Todo App</title>
 
     <style>
-        body{
+        body {
             font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
             text-align: center;
             margin-top: 80px;
-            background: #f4f4f4;
         }
 
-        .card{
+        .card {
             width: 500px;
             margin: auto;
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
         }
 
-        button{
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        h1{
+        h1 {
             color: #2196f3;
         }
 
-        #result{
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #result {
             margin-top: 20px;
             font-size: 20px;
         }
@@ -40,52 +42,51 @@
 
 <body>
 
-<div class="card">
+    <div class="card">
 
-    <h1>Kubernetes Todo App 🚀</h1>
+        <h1>Kubernetes Todo App 🚀</h1>
 
-    <button type="button" onclick="loadData()">
-        Call Backend
-    </button>
+        <button onclick="loadData()">
+            Call Backend
+        </button>
 
-    <div id="result"></div>
+        <div id="result"></div>
 
-</div>
+    </div>
 
-<script>
+    <script>
 
-async function loadData() {
+        async function loadData() {
 
-    console.log("Button clicked");
-    alert("Button clicked");
+            try {
 
-    try {
+                const response = await fetch("/api");
 
-        const response = await fetch("/api");
+                if (!response.ok) {
+                    throw new Error("HTTP Error: " + response.status);
+                }
 
-        console.log(response);
+                const data = await response.json();
 
-        const data = await response.json();
+                document.getElementById("result").innerHTML = `
+                    <h3>${data.message}</h3>
+                    <p>Visits: ${data.visits}</p>
+                `;
 
-        console.log(data);
+            } catch (err) {
 
-        document.getElementById("result").innerHTML = `
-            <h3>${data.message}</h3>
-            <p>Visits: ${data.visits}</p>
-        `;
+                document.getElementById("result").innerHTML = `
+                    <p style="color:red;">
+                        ${err.message}
+                    </p>
+                `;
 
-    } catch (err) {
+            }
 
-        console.error(err);
+        }
 
-        document.getElementById("result").innerHTML =
-            `<p style="color:red">${err}</p>`;
-
-    }
-
-}
-
-</script>
+    </script>
 
 </body>
+
 </html>

@@ -8,9 +8,8 @@ spec:
   selector:
     app: backend
 
-  type: NodePort
-
   ports:
     - port: 3000
       targetPort: 3000
-  
+
+  type: ClusterIP

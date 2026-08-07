@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: todo-frontend:v1
+          image: todo-frontend:v2
           imagePullPolicy: Never
 
           ports:
