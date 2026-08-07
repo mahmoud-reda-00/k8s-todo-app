@@ -1,0 +1,13 @@
+# Ignore local dependency directories
+backend/node_modules/
+frontend/node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore editor/state
+.vscode/

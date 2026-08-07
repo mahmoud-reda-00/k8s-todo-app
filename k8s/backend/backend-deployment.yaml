@@ -19,14 +19,14 @@ spec:
     spec:
       containers:
         - name: backend
-          image: todo-backend:v2
-          imagePullPolicy: Never
+          image: mv7moud/todo-backend:latest
+          imagePullPolicy: IfNotPresent
 
           ports:
             - containerPort: 3000
 
           envFrom:
-           - configMapRef:
-              name: backend-config
-           - secretRef:
-              name: backend-secret
+            - configMapRef:
+                name: backend-config
+            - secretRef:
+                name: backend-secret
