@@ -6,5 +6,6 @@ metadata:
 
 data:
   REDIS_HOST: redis
-  APP_NAME: Todo App
+  APP_NAME: Todo App 
+  
   
