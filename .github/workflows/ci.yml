@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Backend
         run: |
-          docker build -t mv7moud/todo-backend:latest ./backend
+          docker build -f backend/Dockerfile -t mv7moud/todo-backend:latest .
 
       - name: Push Backend
         run: |
