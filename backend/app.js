@@ -8,9 +8,19 @@ const PORT = 3000;
 // Serve frontend static files from ./frontend (inside the container image)
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-const client = createClient({
-    url: `redis://${process.env.REDIS_HOST || "localhost"}:6379`
-});
+const appName = process.env.APP_NAME || "Kubernetes Todo App";
+const redisHost = process.env.REDIS_HOST || "localhost";
+const redisPassword = process.env.REDIS_PASSWORD || undefined;
+
+const clientOptions = {
+    url: `redis://${redisHost}:6379`
+};
+
+if (redisPassword) {
+    clientOptions.password = redisPassword;
+}
+
+const client = createClient(clientOptions);
 
 client.on("error", (err) => {
     console.error("Redis Error:", err);
@@ -30,7 +40,7 @@ app.get("/api", async (req, res) => {
         const visits = await client.incr("visits");
 
         res.json({
-            message: "Hello from Kubernetes Backend 🚀",
+            message: `Hello from ${appName} 🚀`,
             visits: visits
         });
     } catch (err) {
