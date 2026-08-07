@@ -1,8 +1,12 @@
 const express = require("express");
+const path = require("path");
 const { createClient } = require("redis");
 
 const app = express();
 const PORT = 3000;
+
+// Serve frontend static files from ./frontend (inside the container image)
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 const client = createClient({
     url: `redis://${process.env.REDIS_HOST || "localhost"}:6379`
@@ -21,7 +25,7 @@ client.on("error", (err) => {
     }
 })();
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
     try {
         const visits = await client.incr("visits");
 
